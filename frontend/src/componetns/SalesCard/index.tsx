@@ -21,10 +21,19 @@ function SalesCard() {
   const [sales, setSales] = useState<Sale[]>([]);
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/sales`).then((response) => {
+
+  //console.log(minDate); = Thu Jul 15 2021 16:22:02 GMT-0300 (Horário Padrão de Brasília)
+    //const dmin = minDate.toISOString();
+    // console.log(dmin); resultado = 2021-07-15T19:22:02.018Z
+    const dmin = minDate.toISOString().slice(0, 10);
+    // console.log(dmin); resultado = 2021-07-15
+
+    const dmax = maxDate.toISOString().slice(0, 10);
+
+    axios.get(`${BASE_URL}/sales?minDate=${dmin}&maxDate=${dmax}`).then((response) => {
       setSales(response.data.content);
     });
-  }, []);
+  }, [minDate, maxDate]);
 
   return (
     <div className="dsmeta-card">
