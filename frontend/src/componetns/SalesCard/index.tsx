@@ -21,8 +21,7 @@ function SalesCard() {
   const [sales, setSales] = useState<Sale[]>([]);
 
   useEffect(() => {
-
-  //console.log(minDate); = Thu Jul 15 2021 16:22:02 GMT-0300 (Horário Padrão de Brasília)
+    //console.log(minDate); = Thu Jul 15 2021 16:22:02 GMT-0300 (Horário Padrão de Brasília)
     //const dmin = minDate.toISOString();
     // console.log(dmin); resultado = 2021-07-15T19:22:02.018Z
     const dmin = minDate.toISOString().slice(0, 10);
@@ -30,9 +29,11 @@ function SalesCard() {
 
     const dmax = maxDate.toISOString().slice(0, 10);
 
-    axios.get(`${BASE_URL}/sales?minDate=${dmin}&maxDate=${dmax}`).then((response) => {
-      setSales(response.data.content);
-    });
+    axios
+      .get(`${BASE_URL}/sales?minDate=${dmin}&maxDate=${dmax}`)
+      .then((response) => {
+        setSales(response.data.content);
+      });
   }, [minDate, maxDate]);
 
   return (
@@ -76,14 +77,16 @@ function SalesCard() {
               return (
                 <tr key={sale.id}>
                   <td className="show992">{sale.id}</td>
-                  <td className="show576">{new Date(sale.date).toLocaleDateString()}</td>
+                  <td className="show576">
+                    {new Date(sale.date).toLocaleDateString()}
+                  </td>
                   <td>{sale.sellerName}</td>
                   <td className="show992">{sale.visited}</td>
                   <td className="show992">{sale.deals}</td>
                   <td>R$ {sale.amount.toFixed(2)}</td>
                   <td>
                     <div className="dsmeta-red-btn-container">
-                      <NotificationButton />
+                      <NotificationButton saleId={sale.id} />
                     </div>
                   </td>
                 </tr>
