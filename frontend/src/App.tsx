@@ -1,6 +1,5 @@
 import "./App.css";
 import Header from "./componetns/Header";
-import NotificationButton from "./componetns/NotificationButton";
 import SalesCard from "./componetns/SalesCard";
 
 function App() {
